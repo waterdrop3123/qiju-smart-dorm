@@ -9,8 +9,22 @@ import { EmptyView } from '../../view/Widgets';
 /** 日志页：按类型筛选，展示规则自动执行与手动操作的完整轨迹 */
 @Component
 export struct LogsTab {
-  @StorageLink('qijuRev') rev: number = 0;
+  @StorageLink('qijuRev') @Watch('syncCounts') rev: number = 0;
   @State filter: number = 0;
+  @State totalCount: number = 0;
+  @State autoCount: number = 0;
+  @State manualCount: number = 0;
+
+  aboutToAppear(): void {
+    this.syncCounts();
+  }
+
+  // 用 @State 承接统计值：只读 homeStore.logs 时，切到本页后新增的日志不会刷新表头
+  syncCounts(): void {
+    this.totalCount = homeStore.logs.length;
+    this.autoCount = this.countOf(LogKind.AUTOMATION);
+    this.manualCount = this.countOf(LogKind.MANUAL);
+  }
 
   private labels(): string[] {
     return ['全部', '自动', '手动', '场景', '冲突'];
@@ -55,9 +69,9 @@ export struct LogsTab {
             .fontSize(Fonts.title)
             .fontWeight(FontWeight.Bold)
             .fontColor(Palette.text)
-          Text('共 ' + homeStore.logs.length.toString() + ' 条 · 自动 ' +
-            this.countOf(LogKind.AUTOMATION).toString() + ' · 手动 ' +
-            this.countOf(LogKind.MANUAL).toString())
+          Text('共 ' + this.totalCount.toString() + ' 条 · 自动 ' +
+            this.autoCount.toString() + ' · 手动 ' +
+            this.manualCount.toString())
             .fontSize(Fonts.micro + 1)
             .fontColor(Palette.textMuted)
         }
