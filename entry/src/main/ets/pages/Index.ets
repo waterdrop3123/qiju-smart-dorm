@@ -22,6 +22,8 @@ struct Index {
   aboutToAppear(): void {
     // 真机由 EntryAbility.onCreate 初始化；预览器不跑 Ability 生命周期，这里兜底
     homeStore.init();
+    // 预览器同样让节拍跑起来，规则会自动命中并写日志（真机上 startTicker 幂等，不会重复启动）
+    homeStore.startTicker();
   }
 
   @Builder
