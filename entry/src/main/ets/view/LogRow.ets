@@ -24,9 +24,11 @@ export struct LogRow {
 
   build() {
     Row({ space: 10 }) {
+      // 固定高度：早先写 height('100%')，在高度不定的列表行里会被撑成整屏，
+      // 导致日志页只剩最后一条可见（预览器截图里暴露出来的问题）。
       Column()
         .width(3)
-        .height('100%')
+        .height(34)
         .borderRadius(2)
         .backgroundColor(this.accent())
 
