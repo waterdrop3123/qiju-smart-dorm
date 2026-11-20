@@ -3,6 +3,8 @@ import { Device, DeviceFactory, DeviceType } from '../main/ets/model/Device';
 import { CompareOp, Condition, LogicMode, Rule, RuleAction } from '../main/ets/model/Rule';
 import { ExecutionPlan, RuleEngine } from '../main/ets/service/RuleEngine';
 import { EnvSimulator } from '../main/ets/service/EnvSimulator';
+import { SnapshotCodec } from '../main/ets/data/SnapshotCodec';
+import { LogEntry, LogKind } from '../main/ets/model/LogEntry';
 
 function findDevice(devices: Device[], id: string): Device {
   for (let i = 0; i < devices.length; i++) {
@@ -184,6 +186,36 @@ export default function ruleEngineSuite() {
       expect(plan.assignments.length).assertEqual(1);
       expect(plan.assignments[0].ruleId).assertEqual('r_high');
       expect(plan.conflicts.length).assertEqual(1);
+    });
+
+    // ---------------- 持久化编解码（数据层） ----------------
+
+    it('正常_快照编码后解码可完整还原设备与规则', 0, () => {
+      const devices = DeviceFactory.createDefault();
+      const rule = makeRule('r_rt', 66, new Condition('env', 'temperature', CompareOp.GTE, 28),
+        new RuleAction('ac_main', 'power', 1), 120, 0);
+      const log = new LogEntry('log_rt', 1700000000000, LogKind.AUTOMATION, '自动执行', '空调 开', 'r_rt', '规则r_rt', true, '规则引擎');
+      const raw = SnapshotCodec.encode(devices, [rule], [log]);
+      const bundle = SnapshotCodec.decode(raw);
+      if (bundle === undefined) {
+        expect(false).assertTrue();
+        return;
+      }
+      expect(bundle.devices.length).assertEqual(devices.length);
+      expect(bundle.rules.length).assertEqual(1);
+      expect(bundle.rules[0].priority).assertEqual(66);
+      expect(bundle.rules[0].conditions[0].value).assertEqual(28);
+      expect(bundle.logs.length).assertEqual(1);
+      expect(bundle.devices[0].props.length > 0).assertTrue();
+    });
+
+    it('边界_空快照与空 JSON 解码返回 undefined', 0, () => {
+      expect(SnapshotCodec.decode('')).assertUndefined();
+      expect(SnapshotCodec.decode('{}')).assertUndefined();
+    });
+
+    it('异常_非法 JSON 解码不抛异常且返回 undefined', 0, () => {
+      expect(SnapshotCodec.decode('{not-a-json')).assertUndefined();
     });
   });
 }
