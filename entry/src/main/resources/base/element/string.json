@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "智慧宿舍场景编排与规则联动"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "栖居 · 智慧宿舍场景编排"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "栖居"
+    }
+  ]
+}
