@@ -169,7 +169,7 @@ export struct HomeTab {
         .padding(16)
         .borderRadius(Metrics.radius)
         .linearGradient({ angle: 135, colors: [['#0F6B60', 0.0], ['#14887B', 1.0]] })
-        .shadow({ radius: 18, color: '#0F6B6033', offsetY: 6 })
+        .shadow({ radius: 18, color: '#330F6B60', offsetY: 6 })
 
         // 场景
         SectionHeader({ title: '快捷场景', hint: '一键执行' })

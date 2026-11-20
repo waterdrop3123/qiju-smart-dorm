@@ -23,7 +23,7 @@ export class Palette {
   static readonly purple: string = '#7264CE';
   static readonly purpleSoft: string = '#EDEAFA';
   static readonly white: string = '#FFFFFF';
-  static readonly shade: string = '#0000001A';
+  static readonly shade: string = '#1A000000';
 }
 
 export class Metrics {

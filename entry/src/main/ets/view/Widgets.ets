@@ -116,7 +116,7 @@ export struct StatTile {
     .alignItems(HorizontalAlign.Start)
     .padding(this.highlight ? 12 : 10)
     .borderRadius(Metrics.radiusSm)
-    .backgroundColor(this.highlight ? '#FFFFFF1A' : Palette.page)
+    .backgroundColor(this.highlight ? '#1AFFFFFF' : Palette.page)
     .layoutWeight(1)
   }
 }

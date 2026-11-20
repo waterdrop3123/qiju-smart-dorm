@@ -19,6 +19,11 @@ struct Index {
   @Provide('navStack') navStack: NavPathStack = new NavPathStack();
   @StorageLink('qijuTab') activeTab: number = 0;
 
+  aboutToAppear(): void {
+    // 真机由 EntryAbility.onCreate 初始化；预览器不跑 Ability 生命周期，这里兜底
+    homeStore.init();
+  }
+
   @Builder
   pageMap(name: string) {
     if (name === 'deviceDetail') {

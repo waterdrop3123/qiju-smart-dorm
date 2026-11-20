@@ -161,7 +161,7 @@ export struct DeviceCard {
     .padding(14)
     .borderRadius(Metrics.radiusSm + 2)
     .backgroundColor(Palette.card)
-    .shadow({ radius: 12, color: '#0B1F2A0F', offsetY: 4 })
+    .shadow({ radius: 12, color: '#0F0B1F2A', offsetY: 4 })
     .onClick(() => {
       this.onOpen();
     })

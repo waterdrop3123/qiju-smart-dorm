@@ -101,7 +101,7 @@ export struct RulesTab {
         .borderRadius(22)
         .padding({ left: 20, right: 20 })
         .margin({ right: Metrics.page, bottom: 20 })
-        .shadow({ radius: 14, color: '#0F6B6055', offsetY: 6 })
+        .shadow({ radius: 14, color: '#550F6B60', offsetY: 6 })
         .onClick(() => {
           this.onNew();
         })

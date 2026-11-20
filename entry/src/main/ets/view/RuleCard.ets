@@ -128,7 +128,7 @@ export struct RuleCard {
     .padding(14)
     .borderRadius(Metrics.radiusSm + 2)
     .backgroundColor(Palette.card)
-    .shadow({ radius: 10, color: '#0B1F2A0D', offsetY: 3 })
+    .shadow({ radius: 10, color: '#0D0B1F2A', offsetY: 3 })
     .onClick(() => {
       this.onOpen();
     })

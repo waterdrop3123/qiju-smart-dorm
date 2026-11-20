@@ -54,6 +54,9 @@ export class HomeStore {
 
   /** 启动：优先从 preferences 恢复，失败则用默认数据 */
   init(): void {
+    if (this.bootedAt > 0) {
+      return;
+    }
     this.bootedAt = Date.now();
     this.scenes = SceneFactory.createDefault();
     this.storageReady = AppRepository.isReady();
