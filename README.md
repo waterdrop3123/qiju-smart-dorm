@@ -131,7 +131,14 @@ buildPlan(rules, devices, now):
 | 边界 | 6 | 浮点容差、空条件、冷却临界、数值夹紧、模拟区间、空快照 |
 | 异常 | 6 | 设备缺失、写只读传感器、非法规则校验、空规则集、优先级抢占、非法 JSON 解码 |
 
-本地 18 个用例全部通过后，设备侧另跑 3 个回归用例，验证真机环境行为一致。
+本地 18 个用例已实际执行并通过（18/18），设备侧另跑 3 个回归用例，验证真机环境行为一致。
+
+```bash
+# 不需要真机，PC 端直接跑本地单元测试
+hvigorw --mode module -p module=entry@default -p product=default test --no-daemon
+```
+
+最近一次执行输出：[docs/测试结果.txt](docs/测试结果.txt)（`Tests run: 18, Failure: 0, Error: 0, Pass: 18`）。
 
 ## 九、已知限制
 
